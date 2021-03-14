@@ -82,7 +82,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'ESH': { lang: "en",
+	'ESH': { lang: "en", // 영어 끝말잇기
 		rule: "Classic",
 		opts: [ "ext", "mis" ],
 		time: 1,
@@ -90,7 +90,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'KKT': { lang: "ko",
+	'KKT': { lang: "ko", // 한국어 쿵쿵따
 		rule: "Classic",
 		opts: [ "man", "ext", "mis", "loa", "str", "k32" ],
 		time: 1,
@@ -98,7 +98,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'KSH': { lang: "ko",
+	'KSH': { lang: "ko", // 한국어 끝말잇기
 		rule: "Classic",
 		opts: [ "man", "ext", "mis", "loa", "str" ],
 		time: 1,
@@ -106,7 +106,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'CSQ': { lang: "ko",
+	'CSQ': { lang: "ko", // 자음퀴즈
 		rule: "Jaqwi",
 		opts: [ "ijp" ],
 		time: 1,
@@ -114,7 +114,7 @@ exports.RULE = {
 		big: false,
 		ewq: false
 	},
-	'KCW': { lang: "ko",
+	'KCW': { lang: "ko", // 한국어 십자말풀이
 		rule: "Crossword",
 		opts: [],
 		time: 2,
@@ -122,7 +122,7 @@ exports.RULE = {
 		big: true,
 		ewq: false
 	},
-	'KTY': { lang: "ko",
+	'KTY': { lang: "ko", // 한국어 타자대결
 		rule: "Typing",
 		opts: [ "prv" ],
 		time: 1,
@@ -130,7 +130,7 @@ exports.RULE = {
 		big: false,
 		ewq: false
 	},
-	'ETY': { lang: "en",
+	'ETY': { lang: "en", //영어 타자대결
 		rule: "Typing",
 		opts: [ "prv" ],
 		time: 1,
@@ -138,7 +138,7 @@ exports.RULE = {
 		big: false,
 		ewq: false
 	},
-	'KAP': { lang: "ko",
+	'KAP': { lang: "ko", // 한국어 앞말잇기
 		rule: "Classic",
 		opts: [ "man", "ext", "mis", "loa", "str" ],
 		time: 1,
@@ -147,7 +147,7 @@ exports.RULE = {
 		_back: true,
 		ewq: true
 	},
-	'HUN': { lang: "ko",
+	'HUN': { lang: "ko", // 훈민정음
 		rule: "Hunmin",
 		opts: [ "ext", "mis", "loa", "str" ],
 		time: 1,
@@ -155,7 +155,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'KDA': { lang: "ko",
+	'KDA': { lang: "ko", // 한국어 단어대결
 		rule: "Daneo",
 		opts: [ "ijp", "mis" ],
 		time: 1,
@@ -163,7 +163,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'EDA': { lang: "en",
+	'EDA': { lang: "en", // 영어 단어대결
 		rule: "Daneo",
 		opts: [ "ijp", "mis" ],
 		time: 1,
@@ -171,7 +171,7 @@ exports.RULE = {
 		big: false,
 		ewq: true
 	},
-	'KSS': { lang: "ko",
+	'KSS': { lang: "ko", // 한국어 솎솎
 		rule: "Sock",
 		opts: [ "no2" ],
 		time: 1,
@@ -179,7 +179,7 @@ exports.RULE = {
 		big: true,
 		ewq: false
 	},
-	'ESS': { lang: "en",
+	'ESS': { lang: "en", // 영어 솎솎
 		rule: "Sock",
 		opts: [ "no2" ],
 		time: 1,
@@ -187,7 +187,7 @@ exports.RULE = {
 		big: true,
 		ewq: false
 	/* },
-        'KDG': { lang: "ko",
+        'KDG': { lang: "ko", // 한국어 그림퀴즈
                 rule: "Drawing",
                 opts: [ "ijp", "ulm", "sht" ],
                 time: 1,
@@ -195,7 +195,7 @@ exports.RULE = {
                 big: true,
                 ewq: true
         },
-        'EDG': { lang: "en",
+        'EDG': { lang: "en", //영어 그림퀴즈
                 rule: "Drawing",
                 opts: [ "ijp", "ulm", "sht" ],
                 time: 1,
@@ -203,7 +203,7 @@ exports.RULE = {
                 big: true,
                 ewq: true
         },
-        'EAP': { lang: "en",
+        'EAP': { lang: "en", //영어 앞말잇기
                 rule: "Classic",
                 opts: [ "ext", "mis" ],
                 time: 1,
@@ -211,7 +211,7 @@ exports.RULE = {
                 big: false,
                 ewq: true
         },
-        'KMH': { lang: "ko",
+        'KMH': { lang: "ko", //한국어 가운뎃말잇기
                 rule: "Classic",
                 opts: [ "man", "ext", "mis" ],
                 time: 1,
