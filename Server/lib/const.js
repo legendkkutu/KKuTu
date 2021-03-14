@@ -40,7 +40,11 @@ exports.OPTIONS = {
 	'prv': { name: "Proverb" },
 	'str': { name: "Strict" },
 	'k32': { name: "Sami" },
-	'no2': { name: "No2" }
+	'no2': { name: "No2" },
+        //'ulm': { name: "Unlimited" },
+        //'sht': { name: "Short" },
+        'rtn': { name: "Returns" },
+        'rtu': { name: "RandomTurn" },
 };
 exports.MOREMI_PART = [ 'back', 'eye', 'mouth', 'shoes', 'clothes', 'head', 'lhand', 'rhand', 'front' ];
 exports.CATEGORIES = [ "all", "spec", "skin", "badge", "head", "eye", "mouth", "clothes", "hs", "back" ];
@@ -182,7 +186,41 @@ exports.RULE = {
 		ai: false,
 		big: true,
 		ewq: false
-	}
+	/* },
+        'KDG': { lang: "ko",
+                rule: "Drawing",
+                opts: [ "ijp", "ulm", "sht" ],
+                time: 1,
+                ai: false,
+                big: true,
+                ewq: true
+        },
+        'EDG': { lang: "en",
+                rule: "Drawing",
+                opts: [ "ijp", "ulm", "sht" ],
+                time: 1,
+                ai: false,
+                big: true,
+                ewq: true
+        },
+        'EAP': { lang: "en",
+                rule: "Classic",
+                opts: [ "ext", "mis" ],
+                time: 1,
+                ai: true,
+                big: false,
+                ewq: true
+        },
+        'KMH': { lang: "ko",
+                rule: "Classic",
+                opts: [ "man", "ext", "mis" ],
+                time: 1,
+                ai: true,
+                big: false,
+                ewq: true */
+        }
+        
+        
 };
 exports.getPreScore = function(text, chain, tr){
 	return 2 * (Math.pow(5 + 7 * (text || "").length, 0.74) + 0.88 * (chain || []).length) * ( 0.5 + 0.5 * tr );
