@@ -74,7 +74,7 @@ exports.RULE = {
 		ewq: 현재 턴 나가면 라운드 종료?
 	}
 */
-	'EKT': { lang: "en",
+	'EKT': { lang: "en", // 영어 끄투
 		rule: "Classic",
 		opts: [ "man", "ext", "mis" ],
 		time: 1,
