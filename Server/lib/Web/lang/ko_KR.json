@@ -119,6 +119,7 @@
 		"withDiscord": "디스코드 아이디로 로그인",
 		"withGithub": "깃허브 아이디로 로그인",
 		"withLine": "라인 아이디로 로그인",
+                "withTistory": "티스토리 아이디로 로그인",
                 "withDaldalso": "달달소 아이디로 로그인",
 		"login_kkutu": "레전드끄투를 이용하시려면 로그인을 해 주세요.",
                 "loginLegal": "로그인이 진행되면 레전드끄투에서 제공되는 모든 서비스를 이용할 수 있습니다.",
@@ -163,6 +164,7 @@
 		
 		"websocketUnsupport": "본 게임은 Internet Explorer(10), 크롬(16), 파이어폭스(11), 오페라(12.1), 사파리(6) 이상의 버전에서 지원합니다!<br>브라우저를 업데이트해 주세요.",
 		"dictionarySupport": "사전 정보 제공:<a href='http://wordnet.princeton.edu' target='_blank'>WordNet</a><br><label style='color: #777777;'>WordNet 3.0 Copyright 2006 by Princeton University. All rights reserved.</label>",
+                "designSupport": "디자인 소스 제공:<a href='https://kkutu.plus/designsupport.html' target='_blank'>KKuTuDotPlus</a><br><label style='color: #777777;'>이 서버는 끄투닷플러스의 디자인 일부 또는 전체를 사용하고 있습니다.</label>",
 		"youtube": "개발자 유튜브",
                 "wordadd": "단어 추가 신청",
 		"etcSupport": "도움:<a href='http://cafe.naver.com/sdbx' target='_blank'>샌드박스 :: SDBX</a>",
