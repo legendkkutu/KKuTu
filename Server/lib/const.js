@@ -33,18 +33,22 @@ exports.TESTER = GLOBAL.ADMIN.concat([
 exports.IS_SECURED = GLOBAL.IS_SECURED;
 exports.SSL_OPTIONS = GLOBAL.SSL_OPTIONS;
 exports.OPTIONS = {
-	'man': { name: "Manner" },
-	'ext': { name: "Injeong" },
-	'mis': { name: "Mission" },
-	'loa': { name: "Loanword" },
-	'prv': { name: "Proverb" },
-	'str': { name: "Strict" },
-	'k32': { name: "Sami" },
-	'no2': { name: "No2" },
-        //'ulm': { name: "Unlimited" },
-        //'sht': { name: "Short" },
-        'rtn': { name: "Returns" },
-        'rtu': { name: "RandomTurn" },
+	'man': { name: "Manner" }, //매너
+	'ext': { name: "Injeong" }, //어인정
+	'mis': { name: "Mission" }, //미션
+	'loa': { name: "Loanword" }, //우리말
+	'prv': { name: "Proverb" }, //속담
+	'str': { name: "Strict" }, //깐깐
+	'k32': { name: "Sami" }, //3232
+	'no2': { name: "No2" }, //두글자금지
+	'ulm': { name: "Unlimited" }, //무한정
+	'rtn': { name: "Returns"}, //리턴
+	'rdt': { name: "RandomTurn"}, //랜덤턴
+	'nog': { name: "NoGuest"}, //게스트금지
+	'sht': { name: "Short"}, //짧음
+	'rdm': { name: "Randommission"}, //랜덤미션
+	/* 'bom': { name: "Bomb"} */
+	'rev': { name: "Reverse"} //리버스
 };
 exports.MOREMI_PART = [ 'back', 'eye', 'mouth', 'shoes', 'clothes', 'head', 'lhand', 'rhand', 'front' ];
 exports.CATEGORIES = [ "all", "spec", "skin", "badge", "head", "eye", "mouth", "clothes", "hs", "back" ];
@@ -76,7 +80,7 @@ exports.RULE = {
 */
 	'EKT': { lang: "en", // 영어 끄투
 		rule: "Classic",
-		opts: [ "man", "ext", "mis" ],
+		opts: [ "man", "ext", "mis", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -84,31 +88,31 @@ exports.RULE = {
 	},
 	'ESH': { lang: "en", // 영어 끝말잇기
 		rule: "Classic",
-		opts: [ "ext", "mis" ],
+		opts: [ "ext", "mis", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
 		ewq: true
 	},
-	'KKT': { lang: "ko", // 한국어 쿵쿵따
+	'KKT': { lang: "ko", //한국어 쿵쿵따
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str", "k32" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "k32", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
 		ewq: true
 	},
-	'KSH': { lang: "ko", // 한국어 끝말잇기
+	'KSH': { lang: "ko", //한국어 끝말잇기
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "rtn", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
 		ewq: true
 	},
-	'CSQ': { lang: "ko", // 자음퀴즈
+	'CSQ': { lang: "ko", //자음퀴즈
 		rule: "Jaqwi",
-		opts: [ "ijp" ],
+		opts: [ "ijp", "nog" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -116,31 +120,31 @@ exports.RULE = {
 	},
 	'KCW': { lang: "ko", // 한국어 십자말풀이
 		rule: "Crossword",
-		opts: [],
+		opts: [ "nog" ],
 		time: 2,
 		ai: false,
 		big: true,
 		ewq: false
 	},
-	'KTY': { lang: "ko", // 한국어 타자대결
+	'KTY': { lang: "ko", //한국어 타자대결
 		rule: "Typing",
-		opts: [ "prv" ],
+		opts: [ "prv", "nog" ],
 		time: 1,
 		ai: false,
 		big: false,
 		ewq: false
 	},
-	'ETY': { lang: "en", //영어 타자대결
+	'ETY': { lang: "en", // 영어 타자대결
 		rule: "Typing",
-		opts: [ "prv" ],
+		opts: [ "prv", "nog" ],
 		time: 1,
 		ai: false,
 		big: false,
 		ewq: false
 	},
-	'KAP': { lang: "ko", // 한국어 앞말잇기
+	'KAP': { lang: "ko", //한국어 앞말잇기
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -149,7 +153,7 @@ exports.RULE = {
 	},
 	'HUN': { lang: "ko", // 훈민정음
 		rule: "Hunmin",
-		opts: [ "ext", "mis", "loa", "str" ],
+		opts: [ "ext", "mis", "loa", "str", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -157,7 +161,7 @@ exports.RULE = {
 	},
 	'KDA': { lang: "ko", // 한국어 단어대결
 		rule: "Daneo",
-		opts: [ "ijp", "mis" ],
+		opts: [ "ijp", "mis", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -165,7 +169,7 @@ exports.RULE = {
 	},
 	'EDA': { lang: "en", // 영어 단어대결
 		rule: "Daneo",
-		opts: [ "ijp", "mis" ],
+		opts: [ "ijp", "mis", "nog", "rdt", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -173,7 +177,7 @@ exports.RULE = {
 	},
 	'KSS': { lang: "ko", // 한국어 솎솎
 		rule: "Sock",
-		opts: [ "no2" ],
+		opts: [ "no2", "nog" ],
 		time: 1,
 		ai: false,
 		big: true,
@@ -181,46 +185,52 @@ exports.RULE = {
 	},
 	'ESS': { lang: "en", // 영어 솎솎
 		rule: "Sock",
-		opts: [ "no2" ],
+		opts: [ "no2", "nog" ],
 		time: 1,
 		ai: false,
 		big: true,
 		ewq: false
-	/* },
-        'KDG': { lang: "ko", // 한국어 그림퀴즈
-                rule: "Drawing",
-                opts: [ "ijp", "ulm", "sht" ],
-                time: 1,
-                ai: false,
-                big: true,
-                ewq: true
-        },
-        'EDG': { lang: "en", //영어 그림퀴즈
-                rule: "Drawing",
-                opts: [ "ijp", "ulm", "sht" ],
-                time: 1,
-                ai: false,
-                big: true,
-                ewq: true
-        },
-        'EAP': { lang: "en", //영어 앞말잇기
-                rule: "Classic",
-                opts: [ "ext", "mis" ],
-                time: 1,
-                ai: true,
-                big: false,
-                ewq: true
-        },
-        'KMH': { lang: "ko", //한국어 가운뎃말잇기
-                rule: "Classic",
-                opts: [ "man", "ext", "mis" ],
-                time: 1,
-                ai: true,
-                big: false,
-                ewq: true */
-        }
-        
-        
+	},
+	'KDG': { lang: "ko", // 한국어 그림퀴즈
+		rule: "Drawing",
+		opts: [ "ijp", "ulm", "sht", "nog" ],
+		time: 1,
+		ai: false,
+		big: true,
+		ewq: true
+	},
+	'EDG': { lang: "en", // 영어 그림퀴즈
+		rule: "Drawing",
+		opts: [ "ijp", "ulm", "sht", "nog" ],
+		time: 1,
+		ai: false,
+		big: true,
+		ewq: true
+	},
+	'KMH': { lang: "ko", // 한국어 가운뎃말잇기
+		rule: "Classic",
+		opts: [ "man", "mis", "ext", "nog", "rdt", "bom" ],
+		time: 1,
+		ai: true,
+		big: false,
+		ewq: true
+	},
+	'EAP': { lang: "en", // 영어 앞말잇기
+		rule: "Classic",
+		opts: [ "mis", "ext", "nog", "rdt", "bom" ],
+		time: 1,
+		ai: true,
+		big: false,
+		ewq: true
+	},
+	'EKD': { lang: "en", // 영어 쿵쿵따
+		rule: "Classic",
+		opts: [ "ext", "mis", "k32", "rtn", "rdt", "nog", "rdm" ],
+		time: 1,
+		ai: true,
+		big: false,
+		ewq: true
+	}
 };
 exports.getPreScore = function(text, chain, tr){
 	return 2 * (Math.pow(5 + 7 * (text || "").length, 0.74) + 0.88 * (chain || []).length) * ( 0.5 + 0.5 * tr );
@@ -233,35 +243,32 @@ exports.EXAMPLE_TITLE = {
 	'ko': "가나다라마바사아자차",
 	'en': "abcdefghij"
 };
-exports.INIT_SOUNDS = [ "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ" ];
+exports.INIT_SOUNDS = [ "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "○" ];
 exports.MISSION_ko = [ "가", "나", "다", "라", "마", "바", "사", "아", "자", "차", "카", "타", "파", "하" ];
 exports.MISSION_en = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
 
 exports.KO_INJEONG = [
-	"IMS", "VOC", "KRR", "KTV",
-	"NSK", "KOT", "DOT", "DRR", "DGM", "RAG", "LVL",
-	"LOL", "MRN", "MMM", "MAP", "MKK", "MNG",
-	"MOB", "HYK", "CYP", "HRH", "STA", "OIJ",
-	"KGR", "ESB", "ELW", "OIM", "OVW", "NEX", /*"WOW",*/
-	"YRY", "KPO", "JLN", "JAN", "ZEL", "POK", "HAI",
-	"HSS", "KMV", "HDC", "HOS"
+	"KRR", "GCG", "KTV", "NFX", "NSK", /*"UNI",*/ "KOT", "DBD", "DOT", "THP", "DRR", "DGF", "DGM", "RAG",
+	"JLN", "LVL", "LGK", "LOL", "MRN", "MMM", "MAF", "JAN", "MAP", "AKS", "MOB", "BAN", "BUS", "ALE", "VOC", "VLN", "HYK",
+	"CYP", "SWS", "HRH", "STA", "SLS", "OIJ", "IMS", "AKT", "APT", "ESB", "ELW", "LRT", "ERB", "KMV", "OIM", "OVW",
+	"NEX", "GSI", "WOW", "YRY", "KPO", "JRT", /*"CER",*/ "ZEL", /*"CNT",*/ "MKK", "CKR", "CRO", "CRD", "CRY", "FGO", "POK", "PCR", "HAI", "HSS", /*"HAK",*/ "KMU", "KRP", "KPI",
+	"HDC", "HOS"
 ];
 exports.EN_INJEONG = [
 	"LOL"
 ];
 exports.KO_THEME = [
-	"30", "40", "60", "80", "90",
-	"140", "150", "160", "170", "190",
-	"220", "230", "240", "270", "310",
-	"320", "350", "360", "420", "430",
-	"450", "490", "530", "1001"
+	"10", "20", "30", "40", "50", "60", "70", "80", "90", "100", "110", "120", "130",
+	"140", "150", "160", "170", "180", "190", "200", "210",
+	"220", "230", "240", "250", "260", "270", "280", "290", "300", "310",
+	"320", "330", "340", "350", "360", "370", "380", "390", "400", "410", "420", "430", "440",
+	"450", "460", "470", "480", "490", "500", "510", "520", "530"
 ];
 exports.EN_THEME = [
 	"e05", "e08", "e12", "e13", "e15",
 	"e18", "e20", "e43"
 ];
 exports.IJP_EXCEPT = [
-	"OIJ"
 ];
 exports.KO_IJP = exports.KO_INJEONG.concat(exports.KO_THEME).filter(function(item){ return !exports.IJP_EXCEPT.includes(item); });
 exports.EN_IJP = exports.EN_INJEONG.concat(exports.EN_THEME).filter(function(item){ return !exports.IJP_EXCEPT.includes(item); });
