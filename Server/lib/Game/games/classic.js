@@ -57,7 +57,12 @@ exports.getTitle = function(){
 		case 'ESH':
 			eng = "^" + String.fromCharCode(97 + Math.floor(Math.random() * 26));
 			break;
+		case 'EAP':
+			eng = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + "$";
+			break;
 		case 'KKT':
+			my.game.wordLength = 3;
+		case 'EKD':
 			my.game.wordLength = 3;
 		case 'KSH':
 			ja = 44032 + 588 * Math.floor(Math.random() * 18);
@@ -67,6 +72,7 @@ exports.getTitle = function(){
 			ja = 44032 + 588 * Math.floor(Math.random() * 18);
 			eng = "[\\u" + ja.toString(16) + "-\\u" + (ja + 587).toString(16) + "]$";
 			break;
+		case 'KMH':
 	}
 	function tryTitle(h){
 		if(h > 50){
@@ -100,7 +106,7 @@ exports.getTitle = function(){
 		var i, list = [];
 		var len;
 		
-		/* ºÎÇÏ°¡ ³Ê¹« °É¸°´Ù¸é ÁÖ¼®À» Ç®ÀÚ.
+		/* ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê¹ï¿½ ï¿½É¸ï¿½ï¿½Ù¸ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½.
 		R.go(true);
 		return R;
 		*/
@@ -153,7 +159,7 @@ exports.turnStart = function(force){
 	var si;
 	
 	if(!my.game.chain) return;
-	my.game.roundTime = Math.min(my.game.roundTime, Math.max(10000, 150000 - my.game.chain.length * 1500));
+	my.game.roundTime = Math.min(my.game.roundTime, Math.max(10000, 300000 - my.game.chain.length * 1500));
 	speed = my.getTurnSpeed(my.game.roundTime);
 	clearTimeout(my.game.turnTimer);
 	clearTimeout(my.game.robotTimer);
@@ -193,8 +199,12 @@ exports.turnEnd = function(){
 	}
 	my.game.late = true;
 	if(target) if(target.game){
+	if(my.opts.bomb) {
+		score = -9999;
+	} else {
 		score = Const.getPenalty(my.game.chain, target.game.score);
 		target.game.score += score;
+	}
 	}
 	getAuto.call(my, my.game.char, my.game.subChar, 0).then(function(w){
 		my.byMaster('turnEnd', {
@@ -218,7 +228,9 @@ exports.submit = function(client, text){
 	if(!my.game.char) return;
 	
 	if(!isChainable(text, my.mode, my.game.char, my.game.subChar)) return client.chat(text);
-	if(my.game.chain.indexOf(text) != -1) return client.publish('turnError', { code: 409, value: text }, true);
+	if(my.game.chain.indexOf(text) != -1 && !my.opts.returns) return client.publish('turnError', { code: 409, value: text }, true);
+
+	if(my.game.chain.length && my.game.chain[my.game.chain.length - 1].length > 2 && Const.GAME_TYPE[my.mode] === "KMH") my.game.char = my.game.chain[my.game.chain.length - 1][my.game.middleChar]
 	
 	l = my.rule.lang;
 	my.game.loading = true;
@@ -297,7 +309,7 @@ exports.submit = function(client, text){
 		if(!text) return false;
 		if(text.length <= l) return false;
 		if(my.game.wordLength && text.length != my.game.wordLength) return false;
-		if(type == "KAP") return (text.slice(-1) == char) || (text.slice(-1) == subChar);
+		if(type == "KAP" || type == "EAP") return (text.slice(-1) == char) || (text.slice(-1) == subChar);
 		switch(l){
 			case 1: return (text[0] == char) || (text[0] == subChar);
 			case 2: return (text.substr(0, 2) == char);
@@ -306,7 +318,7 @@ exports.submit = function(client, text){
 		}
 	}
 	DB.kkutu[l].findOne([ '_id', text ],
-		(l == "ko") ? [ 'type', Const.KOR_GROUP ] : [ '_id', Const.ENG_ID ]
+	(l == "ko") ? [ 'type', Const.KOR_GROUP ] : (l == "en") ? [ '_id', Const.ENG_ID ] : [ '_id', Const.ENG_ID ] // ìž„ì‹œ
 	).on(onDB);
 };
 exports.getScore = function(text, delay, ignoreMission){
@@ -331,7 +343,7 @@ exports.readyRobot = function(robot){
 	var ended = {};
 	var w, text, i;
 	var lmax;
-	var isRev = Const.GAME_TYPE[my.mode] == "KAP";
+	var isRev = (Const.GAME_TYPE[my.mode] == "KAP" || Const.GAME_TYPE[my.mode] == "EAP");
 	
 	getAuto.call(my, my.game.char, my.game.subChar, 2).then(function(list){
 		if(list.length){
@@ -360,7 +372,11 @@ exports.readyRobot = function(robot){
 		}else denied();
 	});
 	function denied(){
-		text = isRev ? `T.T ...${my.game.char}` : `${my.game.char}... T.T`;
+		if (Math.floor(Math.random()*25) != 0){
+			text = isRev ? `T.T ...${my.game.char}` : `${my.game.char}... T.T`;
+		} else {
+			text = isRev ? `T.T ...${my.game.char}` : `${my.game.char}... T.T`;
+		}
 		after();
 	}
 	function pickList(list){
@@ -405,16 +421,16 @@ exports.readyRobot = function(robot){
 	}
 };
 function getMission(l){
-	var arr = (l == "ko") ? Const.MISSION_ko : Const.MISSION_en;
+	var arr = (l == "ko") ? Const.MISSION_ko : (l == "en") ? Const.MISSION_en : Const.MISSION_ja;
 	
 	if(!arr) return "-";
 	return arr[Math.floor(Math.random() * arr.length)];
 }
 function getAuto(char, subc, type){
 	/* type
-		0 ¹«ÀÛÀ§ ´Ü¾î ÇÏ³ª
-		1 Á¸Àç ¿©ºÎ
-		2 ´Ü¾î ¸ñ·Ï
+		0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¾ï¿½ ï¿½Ï³ï¿½
+		1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		2 ï¿½Ü¾ï¿½ ï¿½ï¿½ï¿½
 	*/
 	var my = this;
 	var R = new Lizard.Tail();
@@ -438,14 +454,21 @@ function getAuto(char, subc, type){
 		case 'KKT':
 			adv = `^(${adc}).{${my.game.wordLength-1}}$`;
 			break;
+		case 'EKD':
+			adv = `^(${adc}).{${my.game.wordLength-1}}$`;
+			break;
 		case 'KAP':
 			adv = `.(${adc})$`;
 			break;
+		case 'EAP':
+			adv = `...(${adc})$`;
+			break;
+		case 'KMH':
 	}
 	if(!char){
 		console.log(`Undefined char detected! key=${key} type=${type} adc=${adc}`);
 	}
-	MAN.findOne([ '_id', char || "¡Ú" ]).on(function($mn){
+	MAN.findOne([ '_id', char || "ï¿½ï¿½" ]).on(function($mn){
 		if($mn && bool){
 			if($mn[key] === null) produce();
 			else R.go($mn[key]);
@@ -463,8 +486,10 @@ function getAuto(char, subc, type){
 			if(my.opts.loanword) aqs.push([ 'flag', { '$nand': Const.KOR_FLAG.LOANWORD } ]);
 			if(my.opts.strict) aqs.push([ 'type', Const.KOR_STRICT ], [ 'flag', { $lte: 3 } ]);
 			else aqs.push([ 'type', Const.KOR_GROUP ]);
-		}else{
+		}else if(my.rule.lang == "en"){
 			aqs.push([ '_id', Const.ENG_ID ]);
+		}else{
+			aqs.push([ '_id', Const.ENG_ID ]); // ìž„ì‹œ
 		}
 		switch(type){
 			case 0:
@@ -524,8 +549,15 @@ function getChar(text){
 		case 'EKT': return text.slice(text.length - 3);
 		case 'ESH':
 		case 'KKT':
+		case 'EKD':
 		case 'KSH': return text.slice(-1);
+		case 'EAP': return text.charAt(0);
 		case 'KAP': return text.charAt(0);
+		case 'KMH':
+			if(Const.GAME_TYPE[my.mode] == "KMH"){
+				if(text.length == 2) my.game.middleChar = 1;
+				else return text.charAt(text.length -1)
+			}
 	}
 };
 function getSubChar(char){
@@ -539,18 +571,18 @@ function getSubChar(char){
 		case "EKT":
 			if(char.length > 2) r = char.slice(1);
 			break;
-		case "KKT": case "KSH": case "KAP":
+		case "KKT": case "KSH": case "KAP": case "KMH":
 			k = c - 0xAC00;
 			if(k < 0 || k > 11171) break;
 			ca = [ Math.floor(k/28/21), Math.floor(k/28)%21, k%28 ];
 			cb = [ ca[0] + 0x1100, ca[1] + 0x1161, ca[2] + 0x11A7 ];
 			cc = false;
-			if(cb[0] == 4357){ // ¤©¿¡¼­ ¤¤, ¤·
+			if(cb[0] == 4357){ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½
 				cc = true;
 				if(RIEUL_TO_NIEUN.includes(cb[1])) cb[0] = 4354;
 				else if(RIEUL_TO_IEUNG.includes(cb[1])) cb[0] = 4363;
 				else cc = false;
-			}else if(cb[0] == 4354){ // ¤¤¿¡¼­ ¤·
+			}else if(cb[0] == 4354){ // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 				if(NIEUN_TO_IEUNG.indexOf(cb[1]) != -1){
 					cb[0] = 4363;
 					cc = true;
@@ -561,7 +593,7 @@ function getSubChar(char){
 				r = String.fromCharCode(((cb[0] * 21) + cb[1]) * 28 + cb[2] + 0xAC00);
 			}
 			break;
-		case "ESH": default:
+			case "ESH": case "EKD": case "EAP": default:
 			break;
 	}
 	return r;
