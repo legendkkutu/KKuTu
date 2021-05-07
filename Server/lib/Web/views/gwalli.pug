@@ -17,7 +17,7 @@
 extends layout
 
 block Subject
-	title *** JJO.KR 관리 페이지 ***
+	title 레전드끄투 DB 다루기
 
 block JS
 	script(type="text/javascript", src="/js/in_admin.min.js")
@@ -53,17 +53,17 @@ block Middle
 			div
 				table
 					thead: tr
-						td #
-						td cost
+						td 이름
+						td 가격
 						td hit
 						td term
-						td group
+						td 위치
 						td updatedAt
-						td options
-						td name_ko_KR
-						td desc_ko_KR
-						td name_en_US
-						td desc_en_US
+						td 옵션
+						td 이름 (한국어)
+						td 설명 (한국어)
+						td 이름 (영어)
+						td 설명 (영어)
 					tbody#shop-data
 			button#shop-add 추가
 			button#shop-apply 적용
@@ -76,16 +76,17 @@ block Middle
 			div
 				table
 					thead: tr
-						td #
-						td money
-						td kkutu
-						td box
-						td equip
+						td ID
+						td 보유 핑
+						td 보유 경험치
+						td 보유 아이템
+						td 착용 아이템
 						td exordial
-						td server
-						td lastLogin
+						td 접속 중인 서버
+						td 최근 로그인
 						td black
-						td friends
+						td 차단
+						td 친구
 					tbody#user-data
 			button#user-apply 적용
 	fieldset
@@ -111,9 +112,9 @@ block Middle
 				table
 					thead: tr
 						td #
-						td type
-						td theme
-						td mean
+						td 품사
+						td 주제
+						td 뜻
 						td 행동
 					tbody#wd-data
 			div#word-flag
@@ -126,9 +127,3 @@ block Middle
 			input#db-theme(placeholder='주제 (~부터 적으면 검색)')
 			textarea#db-list(rows=20, cols=100)
 			button#db-ok 확인
-	fieldset
-		legend 끄투에서의 인기 단어
-		button#kpw-query 조회
-		textarea#kpw-html
-		div#kpw-table
-		button#kpw-flush 반영
